@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tutum</title>
+        
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.esm.js"></script>
+        <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/css/ionic.bundle.css"/>
+        <script src="js/main.js" type="text/javascript"></script>
+        <script>
+
+            window.onload = function () {
+                //var button = document.activeElement.tagName;
+                //button.onclick = addItem;
+
+                document.querySelector('body').addEventListener('click', function (event) {
+                    if (event.target.className.toLowerCase().includes('close')) {
+
+                        event.target.parentElement.remove(event.target.parentElement.outerHTML);
+
+                    }
+                });
+            }
+            function addSkill(event)
+            {
+                if (event.keyCode == '13')
+                {
+                    addItem();
+                }
+            }
+
+
+
+            function addItem() {
+                var textInput = document.getElementById("item");  //getting text input
+                var skill = textInput.value;   //getting value of text input element
+                var p = document.getElementById("p");  //getting element <ul> to add element to
+                if (skill.length > 3) {
+
+                    var li = '<ion-chip outline color="primary"><ion-icon name="build"></ion-icon><ion-label class="skill">' + skill + '</ion-label><ion-icon class="close" name="close-circle"></ion-icon></ion-chip>';  //creating li element to add
+                    p.insertAdjacentHTML('afterend', li);    //inserting text into newly created <li> element
+                    document.getElementById('item').value = '';
+                } else
+                {
+                    handleButtonClick();
+
+                }
+            }
+            
+            function ifChecked(event)
+            {
+            if (document.getElementById('agree').checked)
+            {
+           processForm(event);
+           }
+            else
+            {
+            alert('Please indicate that you have read and agree to the Terms and Conditions');
+            event.preventDefault();
+            }
+            }
+            function enableButton()
+            {
+            //document.getElementById("reg_button").removeAttribute("disabled");
+                var x = document.getElementById("reg_button").hasAttribute("disabled");
+                        if (x == true)
+                {
+                document.getElementById("reg_button").disabled = false;
+                }
+                else
+                {
+                document.getElementById("reg_button").disabled = true;
+                }
+            }
+            
+            
+
+
+
+        </script>
+        <style>
+            :root {
+                --ion-safe-area-top: 0px;
+                --ion-safe-area-bottom: 0px;
+            }
+
+            h1
+            {
+                //margin-left: 8%;
+                text-align: center;
+                font-weight: bold;
+                margin-top: 8px;
+            }
+            p,h6
+            {
+                text-align: center;
+                filter: opacity(85%);
+                text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+            }
+            img
+            {
+                padding: 10px;
+                width: 300px;
+                //filter: opacity(75%);
+            }
+            .fields
+            {
+                padding-left: 10%;
+                padding-right: 10%;
+            }
+            ion-label
+            {
+                padding-left: 35%;
+            }
+            .skill
+            {
+                padding-left: 0%;
+            }
+            .line
+            {
+                margin-top: -48px;
+            }
+            .item-highlight,.item-inner-highlight
+            {
+                display: none !important;
+            }
+            .terms
+            {
+                color: #2d2d2d;
+            }
+            h6 a
+            {
+                color: #2d2d2d;
+                text-decoration: none;
+            }
+            
+        </style>
+    </head>
+    <body>
+    <ion-app>
+        <ion-header translucent>
+            <ion-toolbar>
+                <ion-title><h1>Register</h1></ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content fullscreen> 
+            <p><img src="images/newlogofull2.png"></p>
+            <form onsubmit="ifChecked(event)">
+                <ion-list lines="full" class="ion-no-margin ion-no-padding fields">
+                    <ion-item class="line">
+                    </ion-item>
+                    <ion-item>
+                        <ion-label align="center" position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input align="center" placeholder="John" required type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label align="center" position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input align="center" placeholder="Wick" required type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label align="center" position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input align="center" placeholder="example@gmail.com" required type="email" oninput="handleEmailValue(event)"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label align="center" position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input align="center" placeholder="********" required type="password" oninput="handlePasswordValue(event)"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label align="center" position="stacked">Confirm Password <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input align="center" placeholder="********" required type="password" oninput="handlePasswordValue(event)"></ion-input>
+                    </ion-item>
+                    <ion-item id="p">
+                        <ion-label align="center" position="stacked">Skills <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input id="item" onkeypress="addSkill(event)" align="center" placeholder="Mechanic" required type="text"></ion-input>
+                        
+                    </ion-item>
+                    
+                    <p class="terms"><input onclick="enableButton()" type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the <a href="#">Terms and Conditions</a></p>
+                    <div>
+                        <ion-button id="reg_button" disabled expand="block" type="submit" class="ion-no-margin">Register</ion-button>
+                        <h6><a href="login.html">Login</a></h6>
+                    </div>
+            </form>
+        </ion-content>
+        <ion-alert-controller></ion-alert-controller>
+    </ion-app>
+   
+
+    <script>
+        const controller = document.querySelector('ion-alert-controller');
+        
+        function handleButtonClick() {
+            controller.create({
+                header: 'Alert',
+                message: 'A skill must be longer than 3 characters!',
+                buttons: ['OK']
+            }).then(alert => {
+                alert.present();
+            });
+        }
+        let
+                email, password;
+        function processForm(event) {
+            event.preventDefault();
+            controller.create({
+                header: 'Success',
+                message: ` <b> ${email} </b> <p>Successfully logged in!</p> `,
+                buttons: [{
+                        text: 'OK'
+                    }]
+            }).then(alert => alert.present());
+        }
+        function handleEmailValue(event) {
+            email = event.target.value;
+        }
+        function handlePasswordValue(event) {
+            password = event.target.value;
+        }
+        
+        
+    </script>
+</body>
+</html>
